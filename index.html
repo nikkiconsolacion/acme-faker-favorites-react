@@ -4,8 +4,20 @@
       <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js" crossorigin></script>
       <script src='https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.js'></script>
       <style>
+        h1 {
+          font-family: verdana;
+        }
+        h3 {
+          font-family: verdana;
+          text-decoration: underline;
+        }
+        li {
+          padding: 1rem;
+          list-style: none;
+        }
         .isFavorite {
           background-color: tomato;
+          color: white;
         }
       </style>
   </head>
@@ -46,7 +58,8 @@
               className: user.isFavorite ? 'isFavorite': '',
               onClick: ()=> toggle(user)
             },
-            `${user.name}   ${user.username}`
+            createElement('div', null, user.name),
+            createElement('div', null, user.username),
           ));
           const favorites = users.filter( user => user.isFavorite);
           h3.innerHTML = `You have ${favorites.length} favorites`;
