@@ -1,10 +1,55 @@
 <html>
   <head>
-
+      <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js" crossorigin></script>
+      <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js" crossorigin></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.js'></script>
+      <style>
+        .isFavorite {
+          background-color: tomato;
+        }
+      </style>
   </head>
   <body>
+    <div id='root'></div>
 
     <script>
+      const { render } = ReactDOM; // const render = ReactDom.render;
+      const { createElement, Component } = React;
+      const root = document.querySelector('#root');
+      class App extends Component{
+
+        constructor(){
+          super();
+          const users = [];
+          for (let i = 0; i < 20; i++){
+            users.push(faker.helpers.createCard())
+          };
+          this.state = {
+            users
+          };
+        }
+        render(){
+          const { users } = this.state;
+          //console.log(this.state.users);
+          const toggle = (user) => {
+            user.isFavorite = !user.isFavorite;
+            this.setState( { users });
+          }
+          const lis = users.map( user => createElement(
+            'li',
+            {
+              key: name,
+              className: user.isFavorite ? 'isFavorite': '',
+              onClick: ()=> toggle(user)
+            },
+            user.name
+          ))
+          const ul = createElement('ul', null, lis);
+          return createElement('div',null, ul)
+        }
+      }
+      render(createElement(App), root);
+
     </script>
   </body>
 </html>
