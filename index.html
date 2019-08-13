@@ -10,12 +10,16 @@
       </style>
   </head>
   <body>
+    <h1>Acme Faker Favorites</h1>
+    <h3>You have Favorites</h3>
     <div id='root'></div>
 
     <script>
       const { render } = ReactDOM; // const render = ReactDom.render;
       const { createElement, Component } = React;
       const root = document.querySelector('#root');
+      const h3 = document.querySelector('h3');
+
       class App extends Component{
 
         constructor(){
@@ -42,8 +46,10 @@
               className: user.isFavorite ? 'isFavorite': '',
               onClick: ()=> toggle(user)
             },
-            user.name
-          ))
+            `${user.name}   ${user.username}`
+          ));
+          const favorites = users.filter( user => user.isFavorite);
+          h3.innerHTML = `You have ${favorites.length} favorites`;
           const ul = createElement('ul', null, lis);
           return createElement('div',null, ul)
         }
