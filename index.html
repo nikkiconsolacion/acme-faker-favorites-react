@@ -23,14 +23,12 @@
   </head>
   <body>
     <h1>Acme Faker Favorites</h1>
-    <h3>You have Favorites</h3>
     <div id='root'></div>
 
     <script>
-      const { render } = ReactDOM; // const render = ReactDom.render;
+      const { render } = ReactDOM;
       const { createElement, Component } = React;
       const root = document.querySelector('#root');
-      const h3 = document.querySelector('h3');
 
       class App extends Component{
 
@@ -43,14 +41,16 @@
           this.state = {
             users
           };
-        }
+        };
+
         render(){
           const { users } = this.state;
-          //console.log(this.state.users);
+
           const toggle = (user) => {
             user.isFavorite = !user.isFavorite;
             this.setState( { users });
-          }
+          };
+
           const lis = users.map( user => createElement(
             'li',
             {
@@ -61,14 +61,15 @@
             createElement('div', null, user.name),
             createElement('div', null, user.username),
           ));
-          const favorites = users.filter( user => user.isFavorite);
-          h3.innerHTML = `You have ${favorites.length} favorites`;
-          const ul = createElement('ul', null, lis);
-          return createElement('div',null, ul)
-        }
-      }
-      render(createElement(App), root);
 
+          const favorites = users.filter( user => user.isFavorite);
+          const h3 = createElement('h3', null, `You have ${favorites.length} favorites`);
+          const ul = createElement('ul', null, lis);
+          return createElement('div',null, h3, ul)
+        };
+      };
+
+      render(createElement(App), root);
     </script>
   </body>
 </html>
